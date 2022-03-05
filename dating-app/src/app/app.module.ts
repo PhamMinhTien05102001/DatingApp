@@ -13,6 +13,7 @@ import { RegisterFormComponent } from './register-form/register-form.component';
 import { MembersComponent } from './members/members.component';
 import { MemberDetailComponent } from './member-detail/member-detail.component';
 import { JwtInterceptor } from './_helpers/jwt.interceptor';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { JwtInterceptor } from './_helpers/jwt.interceptor';
     HomeComponent,
     RegisterFormComponent,
     MembersComponent,
-    MemberDetailComponent
+    MemberDetailComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

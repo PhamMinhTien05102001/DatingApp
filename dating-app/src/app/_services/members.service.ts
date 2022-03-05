@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Member } from '../_model/member';
@@ -7,6 +7,9 @@ import { Member } from '../_model/member';
   providedIn: 'root'
 })
 export class MembersService {
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  }
 
   constructor(private httpClient: HttpClient) { }
   baseUrl = 'https://localhost:5001/api/Users';
@@ -16,6 +19,10 @@ export class MembersService {
   }
 
   public getMemberByUsername(username: string) : Observable<Member>{
-    return this.httpClient.get<Member>(`this.baseUrl/${username}`);
+    return this.httpClient.get<Member>(`${this.baseUrl}/${username}`);
+  }
+
+  public updateProfile(member: Member){
+    return this.httpClient.put(this.baseUrl, member, this.httpOptions);
   }
 }
