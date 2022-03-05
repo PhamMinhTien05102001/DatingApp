@@ -13,6 +13,7 @@ namespace DatingApp.API.Profiles
     {
         public UserMapperProfile(){
             CreateMap<User, MemberDto>().ForMember(dest => dest.Age, opt => opt.MapFrom(src => src.DateOfBirth.CaculateAge()));
+            CreateMap<ProfileDto, User>();
         }
     }
 }

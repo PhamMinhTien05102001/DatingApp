@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using DatingApp.API.Database.Repositories;
@@ -17,8 +18,10 @@ namespace DatingApp.API.Controllers
     {
         private readonly DataContext _context;
         public IUserRepository _userRepository { get; set; }
-        public UsersController(IUserRepository userRepository, IMapper mapper)
+        public IUserLikeRepository _userLikeRepository { get; set; }
+        public UsersController(IUserRepository userRepository, IUserLikeRepository userLikeRepository)
         {
+            this._userLikeRepository = userLikeRepository;
             this._userRepository = userRepository;
         }
 
@@ -31,7 +34,6 @@ namespace DatingApp.API.Controllers
             return Ok(_userRepository.GetMembers());
         }
 
-        
         [HttpGet("{username}")]
         public ActionResult<MemberDto> Get(string username)
         {
@@ -41,6 +43,27 @@ namespace DatingApp.API.Controllers
                 return NotFound();
             }
             return Ok(member);
+        }
+
+        [HttpPut]
+        public ActionResult<MemberDto> Put(ProfileDto profileDto)
+        {
+            var username = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            if (string.IsNullOrEmpty(username))
+            {
+                return NotFound();
+            }
+
+            _userRepository.UpdateProfile(username, profileDto);
+            if (_userRepository.SaveChanges()) return NoContent();
+            return NotFound();
+        }
+
+        [HttpPost("{likeUsername}")]
+        public ActionResult Like(string likeUsername){
+            var sourceUsername = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            if(_userLikeRepository.LikeUser(sourceUsername, likeUsername)) return NoContent();
+            return BadRequest();
         }
     }
 }

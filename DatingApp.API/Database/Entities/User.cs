@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using DatingApp.API.Database.Entities;
 
 namespace DatingApp.DatingApp.API.Database.Entities
 {
@@ -53,5 +54,14 @@ namespace DatingApp.DatingApp.API.Database.Entities
             return age;
         }
         
+        public virtual HashSet<UserLike> SourceUsers { get; set; }
+
+        public virtual HashSet<UserLike> LikedUsers { get; set; }
+
+        public User()
+        {
+            LikedUsers = new HashSet<UserLike>();
+            SourceUsers = new HashSet<UserLike>();
+        }
     }
 }
