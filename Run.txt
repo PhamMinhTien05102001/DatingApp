@@ -1,0 +1,4 @@
+dotnet ef migrations add ExtendUserEntity : tạo ra 1 cái migration mới
+dotnet ef migrations list : liệt kê 1 list các migrations hiện tại
+dotnet ef migrations remove : Tự động remove đi cái migrations cuối cùng
+dotnet ef database update: update lại cái database
