@@ -1,3 +1,10 @@
+dotnet new sln -n DatingApp: tạo 1 solution
+dotnet new gitignore: tạo file gitignore cho dotnet
+dotnet new webapi -n DatingApp.API -o DatingApp.API: tạo webapi với tên thư mục là DatingApp.API
+dotnet sln add DatingApp.API: thêm DatingApp.API vào solution
+
+=======================================================================
+dotnet tool update --global dotnet-ef: update tool entity framework
 dotnet ef migrations add ExtendUserEntity : tạo ra 1 cái migration mới
 dotnet ef migrations list : liệt kê 1 list các migrations hiện tại
 dotnet ef migrations remove : Tự động remove đi cái migrations cuối cùng
